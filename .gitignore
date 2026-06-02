@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Extras
+runs/
+models/
+input_videos/
+output_videos/
+training/football-players-detection-1/
