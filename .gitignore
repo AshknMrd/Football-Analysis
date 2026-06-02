@@ -222,4 +222,5 @@ runs/
 models/
 input_videos/
 output_videos/
-training/football-players-detection-1/
+notebooks/training/football-players-detection-1/
+stubs/
