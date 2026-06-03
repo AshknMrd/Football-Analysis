@@ -159,15 +159,21 @@ class CameraMovementEstimator:
             frame = frame.copy()
 
             overlay = frame.copy()
-            cv2.rectangle(overlay, (1215, 95), (1230, 170), (0, 0, 0), -1)
-            alpha = 0.6  # for ftransparency
+
+            X_max, Y_max = frame.shape[1], frame.shape[0]
+            print_rectangle = (0.633*X_max, 0.088*Y_max) # for (1920,1080)this is ~ (1215, 95)
+            cv2.rectangle(overlay, (int(print_rectangle[0]), int(print_rectangle[1])), (int(print_rectangle[0])+200, int(print_rectangle[1])+70), (0, 0, 0), -1)
+
+            alpha = 0.8  # for ftransparency
             cv2.addWeighted(overlay, alpha, frame, 1-alpha, 0, frame)
 
             x_movement, y_movement = camera_movement_per_frame[frame_num]
-            frame = cv2.putText(frame, f"Camera MoveX: {x_movement:.2f}", 
-                                (1215, 92), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 3)
-            frame = cv2.putText(frame, f"Camera MoveY: {y_movement:.2f}", 
-                                (1215, 128), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 3)
+            frame = cv2.putText(frame, f"Camera-X: {x_movement:.1f}", 
+                                (int(print_rectangle[0])+10, int(print_rectangle[1])+20), 
+                                cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (255, 255, 255), 3)
+            frame = cv2.putText(frame, f"Camera-Y: {y_movement:.1f}", 
+                                (int(print_rectangle[0])+10, int(print_rectangle[1])+50), 
+                                cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (255, 255, 255), 3)
 
             output_frames.append(frame)
 

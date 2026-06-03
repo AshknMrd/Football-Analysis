@@ -5,17 +5,22 @@ from player_ball_assigner import PlayerBallAssigner
 from camera_movement_estimator import CameraMovementEstimator
 from view_transformer import ViewTransformer
 from speed_and_distance_estimator import SpeedAndDistance_Estimator
+import argparse
 import cv2
 import numpy as np
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input_video', default='input_videos/08fd33_4.mp4')
+    parser.add_argument('--model', default='models/yolo5_trained/best.pt')
+    args = parser.parse_args()
 
     # Reading video
-    video_frames = read_video('input_videos/08fd33_4.mp4')
+    video_frames = read_video(args.input_video)
 
     # Initialising Tracker 
-    tracker = Tracker('models/yolo5_trained/best.pt')
+    tracker = Tracker(args.model)
 
     # Getting object
     tracks = tracker.get_object_tracks(video_frames,
@@ -49,8 +54,7 @@ def main():
     # Assigning player teams
     team_assigner = TeamAssigner()  # initialising team assigner
     # assigning team their colours and by giving them first frame and tracks of player in first frame
-    team_assigner.assign_team_color(video_frames[0],
-                                    tracks['players'][0])
+    team_assigner.assign_team_color(video_frames[0], tracks['players'][0])
 
     # Looping over each player in each frame and assigning them to colour team
     for frame_num, player_track in enumerate(tracks['players']):

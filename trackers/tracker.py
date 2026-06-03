@@ -350,10 +350,12 @@ class Tracker:
         0: is a scalar added to each sum. In this case, it's 0, so nothing extra is added.
         frame: is the output array. The result is stored back in the original frame.
         """
-        # cv2.rectangle(overlay, (1350, 850), (1900, 970), (255, 255, 255), -1)
-        cv2.rectangle(overlay, (1490, 95), (1600, 170), (0, 0, 0), -1)
+        X_max, Y_max = frame.shape[1], frame.shape[0]
+        print_rectangle = (0.775*X_max, 0.088*Y_max) # for (1920,1080)this is ~ (1488, 95)
 
-        alpha = 0.4  # for transparency
+        cv2.rectangle(overlay, (int(print_rectangle[0]), int(print_rectangle[1])), (X_max-10, int(print_rectangle[1])+70), (0, 0, 0), -1)
+
+        alpha = 0.8  # for transparency
         cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0, frame)
 
         # slicing the team_ball_control array from the beginning up to and including the current frame.
@@ -369,13 +371,15 @@ class Tracker:
         team_1 = team_1_num_frames/(team_1_num_frames+team_2_num_frames)
         team_2 = team_2_num_frames/(team_1_num_frames+team_2_num_frames)
 
-        cv2.putText(frame, f"Ball Control-T1: {team_1*100:.2f}%",
-                    (1520, 92), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 3)
-        cv2.putText(frame, f"Ball Control-T2: {team_2*100:.2f}%",
-                    (1520, 128), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 3)
+        cv2.putText(frame, f"Ball Team1: {team_1*100:.1f}%",
+                    (int(print_rectangle[0])+20, int(print_rectangle[1])+20), 
+                    cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (255, 255, 255), 3)
+        cv2.putText(frame, f"Ball Team2: {team_2*100:.1f}%",
+                    (int(print_rectangle[0])+20, int(print_rectangle[1])+50), 
+                    cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (255, 255, 255), 3)
 
         return frame
-
+    
     # Drawing Near Bounding Boxes
     """
     self: refers to the instance of the class this method belongs to.

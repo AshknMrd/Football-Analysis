@@ -140,7 +140,8 @@ The models and the app can be easily adapted to newer versions of YOLO, such as 
 #### Results: 
 
 <p align="center">
-  <img src="images/final_video_snapshot.png" width="500" alt="Final output video">
+  <img src="images/final_video_snapshot.png" width="400" alt="Final output video 1">
+  <img src="images/final_video_snapshot1.png" width="400" alt="Final output video 2">
   <br>
   <a href="images/output_video.mp4">Play final output video</a>
   <br>
@@ -191,7 +192,7 @@ python -m pip install -r "$REQUIREMENTS"
 Run the main pipeline from the project root:
 ```bash
 cd Football-Analysis
-python main.py
+python main.py --input_video video.mp4 --model best.pt
 ```
 
 The script expects these paths to exist: `input_videos/08fd33_4.mp4` and `models/yolo5_trained/best.pt` and it writes the final annotated video to `output_videos/output_video.mp4`. The script is currently configured for the included sample video. To process another video or model, update the hardcoded paths in `main.py`.
@@ -203,7 +204,6 @@ The script expects these paths to exist: `input_videos/08fd33_4.mp4` and `models
 
 ## Notes and Limitations
 
-- Several paths are hardcoded in `main.py`.
 - Camera movement and tracking data can be loaded from cached pickle files in `stubs/`.
 - The perspective-transform source and target coordinates are hardcoded for the included camera view.
 - Ball possession is assigned with a nearest-player distance heuristic, not with a physical contact model.

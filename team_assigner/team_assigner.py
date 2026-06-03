@@ -24,7 +24,7 @@ class TeamAssigner:
         # getting top half of the image
         top_half_image = image[0:int(image.shape[0]/2), :]
 
-        # Getting Clustering model
+        # Getting Clustering model        
         kmeans = self.get_clustering_model(top_half_image)
 
         # Getting the cluster labels forr each pixel
