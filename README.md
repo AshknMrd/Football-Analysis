@@ -89,9 +89,12 @@ Now that the camera movement is compensated, we focus on frinding the real-worls
 Compute the speed and run distance for each player and print them under the players position.
 
 <p align="center">
-  <video width="700" controls>
+  <video width="700" controls muted playsinline>
     <source src="images/output_video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
   </video>
-  <br>
-  <em>Final output video</em>
 </p>
+
+<video width="700" controls>
+  <source src="https://github.com/AshknMrd/Football-Analysis/blob/main/images/output_video.mp4" type="video/mp4">
+</video>
