@@ -1,0 +1,68 @@
+[paths]
+input_video = "input_videos/08fd33_4.mp4"
+output_video = "output_videos/output_video.mp4"
+model = "models/yolo5_trained/best.pt"
+track_stub = "stubs/track_stubs.pkl"
+camera_movement_stub = "stubs/camera_movement_stub.pkl"
+images_dir = "images"
+models_dir = "models"
+input_videos_dir = "input_videos"
+output_videos_dir = "output_videos"
+stubs_dir = "stubs"
+notebooks_dir = "notebooks"
+dataset_yaml = "notebooks/training/football-players-detection-1/data.yaml"
+
+[tracking]
+read_from_stub = true
+write_to_stub = true
+batch_size = 20
+confidence = 0.1
+convert_goalkeepers_to_players = true
+
+[team_assignment]
+crop_kmeans_n_init = 1
+team_kmeans_n_init = 10
+
+[team_assignment.goalkeeper_team_overrides]
+"91" = 1
+
+[player_ball]
+max_player_ball_distance = 70
+
+[camera_movement]
+read_from_stub = true
+write_to_stub = true
+minimum_distance = 5
+feature_mask_columns = [[0, 20], [900, 1050]]
+lk_win_size = [15, 15]
+lk_max_level = 2
+lk_criteria_count = 10
+lk_criteria_epsilon = 0.03
+feature_max_corners = 100
+feature_quality_level = 0.3
+feature_min_distance = 3
+feature_block_size = 7
+
+[view_transform]
+court_width = 68
+court_length = 23.32
+pixel_vertices = [
+  [110, 1035],
+  [265, 275],
+  [910, 260],
+  [1640, 915],
+]
+
+[speed_distance]
+frame_window = 5
+frame_rate = 24
+
+[video]
+output_fps = 24
+output_codec = "mp4v"
+
+[yolo_inference]
+save = true
+project = "runs/detect"
+name = "predict"
+exist_ok = true
