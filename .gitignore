@@ -218,7 +218,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Extras
-.DS_Store
+.DS_Store/
 runs/
 models/
 input_videos/
