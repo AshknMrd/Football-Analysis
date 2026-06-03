@@ -88,4 +88,8 @@ Now that the camera movement is compensated, we focus on frinding the real-worls
 #### `speed_and_distance_estimator`
 Compute the speed and run distance for each player and print them under the players position.
 
-<video src="images/output_video.mp4" width="700" controls></video>
+<p align="center">
+  <video src="images/output_video.mp4" width="700" controls></video>
+  <br>
+  <em style="font-size:14px;">Final output video</em>
+</p>
