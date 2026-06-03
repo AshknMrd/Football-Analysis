@@ -9,13 +9,14 @@ Now is also the time to prepare the Tracker class that can tracks different obje
 
 I many instance the goal keeper is also detected as a player and switches between these two classes. This might be du to the small training dataset and as we do not investigating any statistics on the goal keeper here we treat the goalkeeper as a layer also. 
 
-
+#### `trackers`
 Now, we want to make the annotations on the predicted video a bit neater, with information that is easier to follow. In the tracker.py file: 
 - Draw a red elipse under each player proportionate with its bounding box width
 - Draw a yellow elipse under the referees
 - Put the players id (detected object id) also printed under the player
 - Put a pointer on the ball
 
+#### `team_assigner`
 At this step, we want to seperate the players as team one and two based on the color of their shirts.
 - Crop the image of each player using the bounding box.
 - Tekae the top half of the image as always includes the T-shirt that seperates the teams by color.
@@ -25,3 +26,31 @@ At this step, we want to seperate the players as team one and two based on the c
 - A team id is assigned to each player and if theat is already decided for a player (by checking the player id) that team assigning would not be runned in the next frame.
 
 Now, since the ball is not detected in every frames and the fact that ball move in a stright line, we will fill the missing frames to detect the ball with average location of the 2 known ends. 
+
+#### `player_ball_assigner`
+After interpolating the frames with missing ball label, we want to specify the player that carries the ball at each frame and assign a red triangle on the player.
+- If the ball is farther than 70 pixels to the closest player it would be assigned to no one
+
+Now add a percentage ball control box on the right-bottom of the frame. For time being we hard code the goal keeper to be from team one 
+
+```Python
+if player_id == 91:  # if goalkeeper assign to team 1
+    team_id = 1
+```
+
+#### `camera_movement_estimator`
+Since the cameras are moving, the bounding boxes would move to even if the players are not moving and we have to compensate for this (counter the player bbox movement with the camera movements)
+- So we choose some fixed features in the frame (physically fixed) and track the movement of these features that they basically show the movement of the camera (the lines or somethong in the fan seats)
+- The estimator would be saved a pickle file in the `stubs` for the fist time and wouldnt be re-done next time.
+- Using OpticalFlow to trach the features that can compute the camera movement 
+- Now print the live camera movement on the top-left
+- Then we try to make the player movements robust to camera movement
+
+#### Perspective Transformation: `view_transformer`
+Now that the camera movement is compensated, we focus on frinding the real-worls transformation to extimate the distance moved per players.
+- The actual size of the court is 105*68 and based on that we can fine a part of the court and find its exact transformation.
+- Now that the transform is done the speed and distance can be calculated in meters
+
+
+#### `speed_and_distance_estimator`
+Compute the speed and run distance for each player and print them under the players position.

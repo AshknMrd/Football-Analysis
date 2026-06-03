@@ -350,7 +350,9 @@ class Tracker:
         0: is a scalar added to each sum. In this case, it's 0, so nothing extra is added.
         frame: is the output array. The result is stored back in the original frame.
         """
-        cv2.rectangle(overlay, (1350, 850), (1900, 970), (255, 255, 255), -1)
+        # cv2.rectangle(overlay, (1350, 850), (1900, 970), (255, 255, 255), -1)
+        cv2.rectangle(overlay, (1490, 95), (1600, 170), (0, 0, 0), -1)
+
         alpha = 0.4  # for transparency
         cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0, frame)
 
@@ -367,10 +369,10 @@ class Tracker:
         team_1 = team_1_num_frames/(team_1_num_frames+team_2_num_frames)
         team_2 = team_2_num_frames/(team_1_num_frames+team_2_num_frames)
 
-        cv2.putText(frame, f"Team 1 Ball Control: {team_1*100:.2f}%",
-                    (1400, 900), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 3)
-        cv2.putText(frame, f"Team 2 Ball Control: {team_2*100:.2f}%",
-                    (1400, 950), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 3)
+        cv2.putText(frame, f"Ball Control-T1: {team_1*100:.2f}%",
+                    (1520, 92), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 3)
+        cv2.putText(frame, f"Ball Control-T2: {team_2*100:.2f}%",
+                    (1520, 128), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 3)
 
         return frame
 

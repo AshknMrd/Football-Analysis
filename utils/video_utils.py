@@ -31,7 +31,8 @@ def save_video(output_video_frames, output_video_path):
     cv2.VideoWriter_fourcc() is a function from OpenCV that creates a 4-byte code used to specify the video codec.
     XVID is an open-source video codec that provides good compression while maintaining quality
     """
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')  # assinging video formam XVID
+    # fourcc = cv2.VideoWriter_fourcc(*'XVID')  # assinging video formam XVID
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 
     """
     This creates a cv2.VideoWriter object which will be used to write the video file.
